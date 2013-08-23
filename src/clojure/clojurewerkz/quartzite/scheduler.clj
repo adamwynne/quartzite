@@ -85,11 +85,14 @@
 
 (defn add-job
   "Adds given job to the scheduler with no associated trigger"
+  ([^JobDetail job-detail ^Boolean replace ^Boolean store-durably-till-scheduled]
+     (.addJob ^Scheduler @*scheduler* job-detail replace store-durably-till-scheduled))
+
   ([^JobDetail job-detail ^Boolean replace]
-     (.addJob ^Scheduler @*scheduler* job-detail replace))
+     (.addJob ^Scheduler @*scheduler* job-detail replace false))
   
   ([^JobDetail job-detail]
-     (add-job job-detail false)))
+     (add-job job-detail false false)))
 
 (defn add-trigger
   "Adds given trigger to the scheduled job with which the trigger has been associated"
